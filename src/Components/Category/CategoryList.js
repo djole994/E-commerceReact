@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../Api";
+import api from "../../Api";
 import "./CategoryList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
