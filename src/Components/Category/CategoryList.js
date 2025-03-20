@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../Api";
 import "./CategoryList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import {
     faLaptop,
     faMobileAlt,
@@ -51,7 +52,8 @@ const CategoryList = () => {
     <div className="category-container">
       <div className="category-grid">
         {categories.map((cat) => (
-          <div key={cat.id} className="category-card">
+          <Link to={`/category/${cat.id}`} key={cat.id}>
+          <div  className="category-card">
             <div className="icon-wrapper">
               {iconMapping[cat.name] ? (
                 <FontAwesomeIcon icon={iconMapping[cat.name]} size="2x" />
@@ -65,6 +67,7 @@ const CategoryList = () => {
             </div>
             <h3>{cat.name}</h3>
           </div>
+          </Link>
         ))}
       </div>
     </div>

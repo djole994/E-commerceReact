@@ -3,6 +3,7 @@ import CategoryList from "../Category/CategoryList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStore, faShoppingCart, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { Outlet } from "react-router-dom";
 import "./Layout.css";
 
 const Layout = () => {
@@ -92,7 +93,7 @@ const Layout = () => {
 
       {/* GLAVNI SADRŽAJ */}
       <main className="main-content">
-        <CategoryList />
+      <Outlet />
       </main>
 
       {/* FOOTER */}
