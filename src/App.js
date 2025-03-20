@@ -3,17 +3,23 @@ import Layout from './Components/Layout/Layout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductList from './Components/Product/Product';
 import CategoryList from './Components/Category/CategoryList';
+import CartPage from "./Components/Cart/CartPage";
+import ProductDetail from './Components/Product/ProductDetail';
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Layout kao parent koji stalno prikazuje header/footer */}
         <Route path="/" element={<Layout />}>
-          {/* index ruta prikazuje kategorije */}
+          {/* Home - prikaže CategoryList */}
           <Route index element={<CategoryList />} />
-          {/* prikaz proizvoda po kategoriji */}
+          {/* Proizvodi po kategoriji */}
           <Route path="category/:categoryId" element={<ProductList />} />
+          {/* Detalji proizvoda */}
+          <Route path="product/:id" element={<ProductDetail />} />
+          {/* Korpa */}
+          <Route path="cart" element={<CartPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

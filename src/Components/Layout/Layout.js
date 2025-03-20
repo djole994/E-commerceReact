@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+
 import CategoryList from "../Category/CategoryList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStore, faShoppingCart, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import React, { useState, useContext } from "react";
+
+import {
+  faStore,
+  faShoppingCart,
+  faBars,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 import { Outlet } from "react-router-dom";
 import "./Layout.css";
+import { Link } from "react-router-dom";
+import { CartContext } from "../../Components/Cart/CartContext";
 
 const Layout = () => {
   // State za kontrolu mobilnog menijaa
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cartItems } = useContext(CartContext);
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   // Otvaranje/zatvaranje mobilnog menija
   const toggleMenu = () => {
@@ -21,7 +36,10 @@ const Layout = () => {
       <header className="header">
         <div className="header-content">
           {/* Lijevo: Logo */}
-          <div className="header-left" onClick={() => (window.location.href = "/")}>
+          <div
+            className="header-left"
+            onClick={() => (window.location.href = "/")}
+          >
             <FontAwesomeIcon icon={faStore} size="2x" className="logo-icon" />
             <span className="logo-text">E-Shop</span>
           </div>
@@ -29,10 +47,18 @@ const Layout = () => {
           {/* Centar: Navigacija (vidljivo samo na desktopu) */}
           <nav className="header-center">
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/shop">Shop</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/contact">Contact</a></li>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/shop">Shop</a>
+              </li>
+              <li>
+                <a href="/about">About</a>
+              </li>
+              <li>
+                <a href="/contact">Contact</a>
+              </li>
             </ul>
           </nav>
 
@@ -50,9 +76,12 @@ const Layout = () => {
               </a>
             </div>
             <div className="cart-icon">
-              <a href="/cart">
+              <Link to="/cart" style={{ position: "relative" }}>
                 <FontAwesomeIcon icon={faShoppingCart} size="lg" />
-              </a>
+                {totalQuantity > 0 && (
+                  <span className="cart-badge">{totalQuantity}</span>
+                )}
+              </Link>
             </div>
           </div>
 
@@ -65,10 +94,18 @@ const Layout = () => {
         {/* MOBILNI MENI: Sve u jednom containeru (nav + social + cart) */}
         <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/shop">Shop</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="/shop">Shop</a>
+            </li>
+            <li>
+              <a href="/about">About</a>
+            </li>
+            <li>
+              <a href="/contact">Contact</a>
+            </li>
           </ul>
 
           <div className="social-icons">
@@ -84,16 +121,19 @@ const Layout = () => {
           </div>
 
           <div className="cart-icon">
-            <a href="/cart">
+            <Link to="/cart" style={{ position: "relative" }}>
               <FontAwesomeIcon icon={faShoppingCart} size="lg" />
-            </a>
+              {totalQuantity > 0 && (
+                <span className="cart-badge">{totalQuantity}</span>
+              )}
+            </Link>
           </div>
         </div>
       </header>
 
       {/* GLAVNI SADRŽAJ */}
       <main className="main-content">
-      <Outlet />
+        <Outlet />
       </main>
 
       {/* FOOTER */}
