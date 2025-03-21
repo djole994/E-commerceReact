@@ -4,18 +4,18 @@ import "./CategoryList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import {
-    faLaptop,
-    faMobileAlt,
-    faMicrochip,
-    faGamepad,
-    faHome,
-    faTv,
-    faHeadphonesAlt,
-    faNetworkWired,
-    faClock, //  za faWatch
-    faPlug
-  } from "@fortawesome/free-solid-svg-icons";
-  
+  faLaptop,
+  faMobileAlt,
+  faMicrochip,
+  faGamepad,
+  faHome,
+  faTv,
+  faHeadphonesAlt,
+  faNetworkWired,
+  faClock,
+  faPlug
+} from "@fortawesome/free-solid-svg-icons";
+import HeroSection from "../Hero/HeroSection"; 
 
 // Mapiranje kategorija na ikonice
 const iconMapping = {
@@ -34,13 +34,12 @@ const iconMapping = {
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
 
-  // Dohvaćanje kategorija s API-a
   const fetchCategories = async () => {
     try {
       const response = await api.get("/Category");
       setCategories(response.data);
     } catch (error) {
-      console.error("Greška pri dohvatanju kategorija:", error);
+      console.error("Error fetching categories:", error);
     }
   };
 
@@ -50,23 +49,27 @@ const CategoryList = () => {
 
   return (
     <div className="category-container">
+      {/* Hero Section */}
+      <HeroSection />
+
+      <h2>Categories</h2>
       <div className="category-grid">
         {categories.map((cat) => (
           <Link to={`/category/${cat.id}`} key={cat.id}>
-          <div  className="category-card">
-            <div className="icon-wrapper">
-              {iconMapping[cat.name] ? (
-                <FontAwesomeIcon icon={iconMapping[cat.name]} size="2x" />
-              ) : (
-                <img
-                  alt={cat.name}
-                  src={`http://localhost:5199${cat.imageUrl}`}
-                  className="category-image"
-                />
-              )}
+            <div className="category-card">
+              <div className="icon-wrapper">
+                {iconMapping[cat.name] ? (
+                  <FontAwesomeIcon icon={iconMapping[cat.name]} size="2x" />
+                ) : (
+                  <img
+                    alt={cat.name}
+                    src={`http://localhost:5199${cat.imageUrl}`}
+                    className="category-image"
+                  />
+                )}
+              </div>
+              <h3>{cat.name}</h3>
             </div>
-            <h3>{cat.name}</h3>
-          </div>
           </Link>
         ))}
       </div>

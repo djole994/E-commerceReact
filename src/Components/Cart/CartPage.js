@@ -5,7 +5,6 @@ import "./CartPage.css";
 const CartPage = () => {
   const { cartItems, removeFromCart } = useContext(CartContext);
 
-  // Izračunaj ukupan iznos
   const totalAmount = cartItems.reduce(
     (acc, item) => acc + (item.discountPrice || item.price) * item.quantity,
     0
@@ -13,18 +12,18 @@ const CartPage = () => {
 
   return (
     <div className="cart-page-container">
-      <h2>Vaša korpa</h2>
+      <h2>Your Cart</h2>
       {cartItems.length === 0 ? (
-        <p>Korpa je prazna.</p>
+        <p>Your cart is empty.</p>
       ) : (
         <table className="cart-table">
           <thead>
             <tr>
-              <th>Slika</th>
-              <th>Proizvod</th>
-              <th>Cijena</th>
-              <th>Količina</th>
-              <th>Ukloni</th>
+              <th>Image</th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -56,8 +55,8 @@ const CartPage = () => {
 
       {cartItems.length > 0 && (
         <div className="cart-summary">
-          <h3>Ukupno: {totalAmount.toFixed(2)} KM</h3>
-          <button className="checkout-button">Nastavi na plaćanje</button>
+          <h3>Total: {totalAmount.toFixed(2)} EUR</h3>
+          <button className="checkout-button">Proceed to Checkout</button>
         </div>
       )}
     </div>

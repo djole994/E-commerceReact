@@ -13,11 +13,10 @@ const ProductList = () => {
   useEffect(() => {
     const fetchCategoryName = async () => {
       try {
-        // Poziv na API za jednu kategoriju: /Category/1
         const response = await api.get(`/Category/${categoryId}`);
         setCategoryName(response.data.name);
       } catch (error) {
-        console.error("Greška pri dohvatanju kategorije:", error);
+        console.error("Error fetching category:", error);
       }
     };
 
@@ -26,7 +25,7 @@ const ProductList = () => {
         const response = await api.get(`/Product/ByCategory/${categoryId}`);
         setProducts(response.data);
       } catch (error) {
-        console.error("Greška pri dohvatanju proizvoda:", error);
+        console.error("Error fetching products:", error);
       }
     };
 
@@ -53,26 +52,27 @@ const ProductList = () => {
             />
             <h3>{prod.name}</h3>
             <p className="product-description">{prod.description}</p>
+
             {prod.isDiscounted ? (
               <p className="discounted-price">
-                <span className="original-price">{prod.price} KM</span>{" "}
+                <span className="original-price">{prod.price} KM</span>
                 {prod.discountPrice} KM
               </p>
             ) : (
               <p className="product-price">{prod.price} KM</p>
             )}
 
-            {/* Dugme za detalje proizvoda */}
+            {/* Button for product details */}
             <Link to={`/product/${prod.id}`} className="details-button">
-              Detaljno
+              View Details
             </Link>
 
-            {/* Dugme za dodavanje u korpu */}
+            {/* Button for adding to cart */}
             <button
               onClick={() => handleAddToCart(prod)}
               className="add-to-cart-button"
             >
-              Dodaj u korpu
+              Add to Cart
             </button>
           </div>
         ))}
