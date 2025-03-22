@@ -26,17 +26,13 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: #fff;
+  overflow: hidden;
 }
 
-/* Hover efekat na cijeli .product-card */
-.product-card:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,0.15);
-  transform: translateY(-4px);
-}
+
 
 .product-image {
   width: 100%;
-  /* Fixiraj visinu i širinu za konzistentan prikaz */
   width: 220px;
   height: 220px;
   object-fit: cover;
@@ -45,7 +41,12 @@
   transition: transform 0.3s;
 }
 
-/* Opcionalno, da se slika malo poveća na hover */
+
+.product-card .product-image:hover {
+  /* box-shadow: 0 0 10px rgba(0,0,0,0.15); */
+  transform: translateY(-4px);
+}
+
 .product-card:hover .product-image {
   transform: scale(1.05);
 }

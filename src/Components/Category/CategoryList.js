@@ -63,7 +63,7 @@ const CategoryList = () => {
                 ) : (
                   <img
                     alt={cat.name}
-                    src={`http://localhost:5199${cat.imageUrl}`}
+                    src={`${cat.imageUrl}`}
                     className="category-image"
                   />
                 )}
