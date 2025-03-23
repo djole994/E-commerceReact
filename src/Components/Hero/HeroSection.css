@@ -16,7 +16,6 @@
   position: relative;
   display: inline-block;
 }
-
 .hero-title::after {
   content: "";
   display: block;
@@ -26,57 +25,85 @@
   margin: 8px auto 0 auto;
 }
 
+/* Omotnica za slider */
 .slider-wrapper {
   position: relative;
-  width: 100%;
-  margin: 0 auto;
   overflow: hidden;
 }
 
+/* Slider container – sakriven scrollbar */
 .hero-products-container {
-  overflow-x: auto;
+  overflow-x: scroll;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch; 
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+.hero-products-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
+/* Flex container za proizvode */
 .hero-products {
   display: flex;
-  gap: 20px;
-  padding: 10px;
   flex-wrap: nowrap;
+  justify-content: flex-start;
 }
 
+/* Kartice – koristimo fiksni flex-basis bez dodatnih margini */
 .hero-product-card {
-  flex-shrink: 0;
-  width: 300px;
-  border-radius: 8px;
+  flex: 0 0 20%;
+  box-sizing: border-box;
+  border-right: 1px solid #e0e0e0;
   background: #fff;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   padding: 15px;
   text-align: center;
   position: relative;
   transition: transform 0.3s;
-  scroll-snap-align: start; 
-  margin: 0 10px;
+  scroll-snap-align: start;
 }
 
 .hero-product-card:hover {
   transform: translateY(-5px);
 }
 
+/* Media queries za responsivnost */
+@media (max-width: 1200px) {
+  .hero-product-card {
+    flex: 0 0 25%; /* 4 artikla */
+  }
+}
+@media (max-width: 992px) {
+  .hero-product-card {
+    flex: 0 0 33.333%; /* 3 artikla */
+  }
+}
+@media (max-width: 768px) {
+  .hero-product-card {
+    flex: 0 0 50%; /* 2 artikla */
+  }
+}
+@media (max-width: 576px) {
+  .hero-product-card {
+    flex: 0 0 100%; /* 1 artikal */
+  }
+}
+
+/* Slika proizvoda */
 .hero-product-image {
-  width: 180px;
+  width: 100%;
+  max-width: 180px;
   height: 180px;
   object-fit: cover;
   margin-bottom: 10px;
   border-radius: 5px;
   transition: transform 0.3s ease;
 }
-
 .hero-product-image:hover {
   transform: scale(1.05);
 }
 
+/* Badge popusta */
 .discount-badge {
   position: absolute;
   top: 0;
@@ -86,7 +113,6 @@
   overflow: hidden;
   z-index: 1;
 }
-
 .discount-badge span {
   position: absolute;
   top: 22px;
@@ -103,12 +129,12 @@
   box-shadow: 0 2px 2px rgba(0,0,0,0.3);
 }
 
+/* Naslovi i cijene */
 .hero-product-card h3 {
   margin-bottom: 5px;
   color: #333;
-  font-weight: 600;
+  font-weight: 500;
 }
-
 .hero-discounted-price {
   font-weight: bold;
   margin-top: 5px;
@@ -116,20 +142,19 @@
   color: #e53935;
   margin-bottom: 10px;
 }
-
 .hero-product-price {
   font-weight: bold;
   margin-top: 5px;
   font-size: 1.1rem;
   margin-bottom: 10px;
 }
-
 .hero-original-price {
   text-decoration: line-through;
   color: #666;
   font-weight: 500;
 }
 
+/* Strelice */
 .slider-button {
   position: absolute;
   top: 50%;
@@ -147,21 +172,19 @@
   justify-content: center;
   color: #007bff;
 }
-
 .slider-button:hover {
   background: #007bff;
   color: #fff;
   border-color: #007bff;
 }
-
 .slider-button-left {
   left: 10px;
 }
-
 .slider-button-right {
   right: 10px;
 }
 
+/* Price + Cart */
 .price-cart-row {
   display: flex;
   align-items: center;
@@ -169,7 +192,6 @@
   gap: 10px;
   margin-top: 8px;
 }
-
 .add-to-cart-button {
   background-color: #007bff;
   color: #fff;
@@ -181,24 +203,22 @@
   transition: background-color 0.3s ease;
   margin-top: 10px;
 }
-
 .add-to-cart-button:hover {
   background-color: #0056b3;
 }
 
+/* Opis */
 .hero-product-description {
   list-style: none;
   margin-top: 8px;
   padding-left: 0;
   text-align: left;
 }
-
 .hero-product-description li {
   position: relative;
   padding-left: 1.5em;
   margin-bottom: 4px;
 }
-
 .hero-product-description li::before {
   content: "✔";
   color: #28a745;
@@ -207,11 +227,11 @@
   left: 0;
 }
 
+/* Link */
 .card-click-area {
   text-decoration: none;
   color: inherit;
 }
-
 .card-click-area:hover {
   text-decoration: none;
 }

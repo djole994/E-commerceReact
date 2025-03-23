@@ -10,13 +10,12 @@ const HeroSection = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const { addToCart } = useContext(CartContext);
 
-  // Slider container ref
+  // Ref na slider container
   const heroProductsRef = useRef(null);
 
-  // Da li je korisnik ručno kliknuo strelice ili sam skrolovao
-  const [userInteracted, setUserInteracted] = useState(false);
+  // Kontroliramo auto-scroll – on se gasi kad korisnik klikne strelicu
+  const [autoScrollActive, setAutoScrollActive] = useState(true);
 
-  // Učitavanje proizvoda na popustu
   useEffect(() => {
     const fetchDiscountedProducts = async () => {
       try {
@@ -29,119 +28,49 @@ const HeroSection = () => {
     fetchDiscountedProducts();
   }, []);
 
-  // Auto-scroll svake 3 sekunde (dok korisnik ne interveniše)
+  // Auto-scroll – pomak za cijelu vidljivu stranicu svakih 3 sekunde
   useEffect(() => {
-    if (userInteracted) return; // Prekid ako je korisnik već kliknuo ili skrolovao
+    if (!autoScrollActive) return;
 
     const interval = setInterval(() => {
       moveToNext();
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [featuredProducts, userInteracted]);
+  }, [featuredProducts, autoScrollActive]);
 
-  // Ako korisnik ručno skroluje, zaustavi auto-scroll
-  const handleManualScroll = () => {
-    if (!userInteracted) {
-      setUserInteracted(true);
-    }
-  };
-
-  useEffect(() => {
-    const container = heroProductsRef.current;
-    if (!container) return;
-
-    container.addEventListener("scroll", handleManualScroll, { once: true });
-
-    return () => {
-      container.removeEventListener("scroll", handleManualScroll, { once: true });
-    };
-  }, [userInteracted]);
-
-  // Pomoćne funkcije za izračun
-  const getCardWidth = () => {
-    const container = heroProductsRef.current;
-    if (!container) return 0;
-
-    const cardList = container.querySelectorAll(".hero-product-card");
-    if (!cardList.length) return 0;
-
-    const firstCard = cardList[0];
-    const style = window.getComputedStyle(firstCard);
-    return (
-      firstCard.offsetWidth +
-      parseFloat(style.marginLeft) +
-      parseFloat(style.marginRight)
-    );
-  };
-
-  const getCurrentIndex = () => {
-    const container = heroProductsRef.current;
-    if (!container) return 0;
-
-    const cardWidth = getCardWidth();
-    if (!cardWidth) return 0;
-
-    return Math.round(container.scrollLeft / cardWidth);
-  };
-
-  const getTotalCards = () => {
-    const container = heroProductsRef.current;
-    if (!container) return 0;
-
-    return container.querySelectorAll(".hero-product-card").length;
-  };
-
-  // Pomjeri na sljedeću karticu
+  // Pomak za cijelu "stranicu" (offsetWidth) slidera – time se pomiče točno onoliko artikala koliko je vidljivo
   const moveToNext = () => {
+    if (!heroProductsRef.current) return;
     const container = heroProductsRef.current;
-    if (!container) return;
+    const containerWidth = container.offsetWidth;
+    const newPosition = container.scrollLeft + containerWidth;
 
-    const totalCards = getTotalCards();
-    if (!totalCards) return;
-
-    const currentIndex = getCurrentIndex();
-    let nextIndex = currentIndex + 1;
-
-    // Ako smo na zadnjoj, vraća se na prvu
-    if (nextIndex >= totalCards) {
-      nextIndex = 0;
+    // Ako novi položaj prelazi ukupnu širinu, resetiramo na 0
+    if (newPosition >= container.scrollWidth - 5) {
+      container.scrollTo({ left: 0, behavior: "smooth" });
+    } else {
+      container.scrollTo({ left: newPosition, behavior: "smooth" });
     }
-
-    const cardWidth = getCardWidth();
-    container.scrollTo({
-      left: nextIndex * cardWidth,
-      behavior: "smooth",
-    });
   };
 
-  // Pomjeri na prethodnu karticu
   const moveToPrev = () => {
-    setUserInteracted(true);
+    setAutoScrollActive(false);
+    if (!heroProductsRef.current) return;
     const container = heroProductsRef.current;
-    if (!container) return;
+    const containerWidth = container.offsetWidth;
+    const newPosition = container.scrollLeft - containerWidth;
 
-    const totalCards = getTotalCards();
-    if (!totalCards) return;
-
-    const currentIndex = getCurrentIndex();
-    let prevIndex = currentIndex - 1;
-
-    // Ako smo na prvoj, skače na zadnju
-    if (prevIndex < 0) {
-      prevIndex = totalCards - 1;
+    if (newPosition < 0) {
+      // Ako smo na početku, skrolaj na kraj
+      container.scrollTo({ left: container.scrollWidth - containerWidth, behavior: "smooth" });
+    } else {
+      container.scrollTo({ left: newPosition, behavior: "smooth" });
     }
-
-    const cardWidth = getCardWidth();
-    container.scrollTo({
-      left: prevIndex * cardWidth,
-      behavior: "smooth",
-    });
   };
 
-  // Ručno listanje - next
   const handleNextClick = () => {
-    setUserInteracted(true);
+    setAutoScrollActive(false);
     moveToNext();
   };
 
@@ -161,12 +90,12 @@ const HeroSection = () => {
       <h2 className="hero-title">Special Offers</h2>
 
       <div className="slider-wrapper">
-        {/* Lijeva strelica */}
+        {/* Strelica lijevo */}
         <button className="slider-button slider-button-left" onClick={moveToPrev}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
 
-        {/* Kontejner za horizontalni scroll i snap */}
+        {/* Slider container – bez vidljivog scrollbar-a */}
         <div className="hero-products-container" ref={heroProductsRef}>
           <div className="hero-products">
             {featuredProducts.map((prod) => {
@@ -182,7 +111,6 @@ const HeroSection = () => {
                         <span>Save {discountPercentage}%</span>
                       </div>
                     )}
-
                     <img
                       src={`http://localhost:5199/${prod.imageUrl}`}
                       alt={prod.name}
@@ -204,18 +132,12 @@ const HeroSection = () => {
                   {prod.isDiscounted ? (
                     <div className="price-cart-row">
                       <span className="hero-original-price">{prod.price} EUR</span>
-                      <button
-                        onClick={() => handleAddToCart(prod)}
-                        className="add-to-cart-button"
-                      >
+                      <button onClick={() => handleAddToCart(prod)} className="add-to-cart-button">
                         <FontAwesomeIcon icon={faCartPlus} />
                       </button>
                     </div>
                   ) : (
-                    <button
-                      onClick={() => handleAddToCart(prod)}
-                      className="add-to-cart-button"
-                    >
+                    <button onClick={() => handleAddToCart(prod)} className="add-to-cart-button">
                       <FontAwesomeIcon icon={faCartPlus} />
                     </button>
                   )}
@@ -225,7 +147,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Desna strelica */}
+        {/* Strelica desno */}
         <button className="slider-button slider-button-right" onClick={handleNextClick}>
           <FontAwesomeIcon icon={faArrowRight} />
         </button>

@@ -1,50 +1,59 @@
 .category-container {
-    padding: 20px;
-    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-    min-height: 100vh;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  
-  .category-container h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-  }
-  
-  .category-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-  }
-  
-  .category-card {
-    background: #ffffff;
-    height: 128px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    padding: 20px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-  }
-  
-  .icon-wrapper {
-    margin-bottom: 15px;
-    color: #4a90e2; 
-  }
-  
-  .category-card h3 {
-    font-size: 1.1rem;
-    color: #555;
-  }
-  
-  .category-image {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-  }
-  
+  padding: 30px;
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  min-height: 100vh;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.category-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 2rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.category-card {
+  background: #ffffff;
+  height: 140px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.icon-wrapper {
+  margin-bottom: 10px;
+  color: #4a90e2;
+  background: rgba(74, 144, 226, 0.1);
+  padding: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.category-card h3 {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0;
+}
+
+.category-image {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}

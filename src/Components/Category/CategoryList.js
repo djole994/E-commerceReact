@@ -15,7 +15,7 @@ import {
   faClock,
   faPlug
 } from "@fortawesome/free-solid-svg-icons";
-import HeroSection from "../Hero/HeroSection"; 
+import HeroSection from "../Hero/HeroSection";
 
 // Mapiranje kategorija na ikonice
 const iconMapping = {
@@ -61,11 +61,7 @@ const CategoryList = () => {
                 {iconMapping[cat.name] ? (
                   <FontAwesomeIcon icon={iconMapping[cat.name]} size="2x" />
                 ) : (
-                  <img
-                    alt={cat.name}
-                    src={`${cat.imageUrl}`}
-                    className="category-image"
-                  />
+                  <img alt={cat.name} src={cat.imageUrl} className="category-image" />
                 )}
               </div>
               <h3>{cat.name}</h3>
