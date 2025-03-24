@@ -1,221 +1,285 @@
+/* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  /* =========== HEADER =========== */
-  .header {
-    background: linear-gradient(135deg, #4a90e2, #145f9e);
-    color: #fff;
-    padding: 15px 30px;
-    position: relative;
-  }
-  
-  .header-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .header-left {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .logo-icon {
-    margin-right: 8px;
-  }
-  
-  .logo-text {
-    font-size: 1.6rem;
-    font-weight: bold;
-  }
-  
-  .header-center ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .header-center ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 1rem;
-    transition: color 0.2s;
-  }
-  
-  .header-center ul li a:hover {
-    color: #d1e8ff;
-  }
-  
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .social-icons a {
-    color: #fff;
-    margin-right: 8px;
-    transition: color 0.2s;
-  }
-  
-  .social-icons a:last-child {
-    margin-right: 0;
-  }
-  
-  .social-icons a:hover {
-    color: #d1e8ff;
-  }
-  
-  .cart-icon a {
-    color: #fff;
-    transition: color 0.2s;
-  }
-  
-  .cart-icon a:hover {
-    color: #d1e8ff;
-  }
-  
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1.5rem;
-  }
-  
-  /* =========== MOBILE MENI (skriven na desktopu) =========== */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ========== HEADER ========== */
+.header {
+  background: linear-gradient(135deg, #4a90e2, #145f9e);
+  color: #fff;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* ======= GORNJI RED: email, phone, social icons ======= */
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 30px;
+  background: rgba(255,255,255,0.1);
+  font-size: 0.9rem;
+}
+
+.contact-info {
+  display: flex;
+  gap: 15px;
+}
+.contact-info span {
+  white-space: nowrap; 
+}
+
+.top-social-icons a {
+  color: #fff;
+  margin-left: 10px;
+  transition: color 0.2s;
+}
+.top-social-icons a:hover {
+  color: #d1e8ff;
+}
+
+/* ======= DONJI RED: logo, nav, search, cart ======= */
+.header-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.logo-icon {
+  margin-right: 8px;
+}
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+/* Nav (desktop) */
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.main-nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+.main-nav ul li a:hover {
+  color: #d1e8ff;
+}
+
+/* Desni dio: search + cart + hamburger */
+.header-right-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Search bar (desktop) */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.search-bar input {
+  border: none;
+  padding: 6px 8px;
+  font-size: 1rem;
+  outline: none;
+}
+.search-bar button {
+  border: none;
+  background: #145f9e;
+  color: #fff;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.search-bar button:hover {
+  background: #0f4d7d;
+}
+
+/* Cart ikona */
+.cart-icon a {
+  color: #fff;
+  position: relative;
+  transition: color 0.2s;
+}
+.cart-icon a:hover {
+  color: #d1e8ff;
+}
+
+/* Hamburger meniji */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+/* ========== MOBILE MENI ========== */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background: #145f9e;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+}
+.mobile-menu.open {
+  display: flex; 
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.mobile-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.mobile-menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+.mobile-search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.mobile-search-bar input {
+  border: none;
+  padding: 6px 8px;
+  font-size: 1rem;
+  outline: none;
+}
+.mobile-search-bar button {
+  border: none;
+  background: #145f9e;
+  color: #fff;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.mobile-search-bar button:hover {
+  background: #0f4d7d;
+}
+
+/* Mobile social + cart */
+.mobile-social-icons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.mobile-social-icons a {
+  color: #fff;
+  font-size: 1.2rem;
+}
+.mobile-cart-icon a {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* ========== CART BADGE ========== */
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== MAIN ========== */
+.main-content {
+  flex: 1;
+  background: #f0f4f8;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  background: #333;
+  color: #ccc;
+  padding: 20px 30px;
+  text-align: center;
+}
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.footer-links a {
+  margin: 0 10px;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.footer-links a:hover {
+  color: #fff;
+}
+.footer p {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+/* ========== MEDIA QUERIES ========== */
+@media (min-width: 769px) {
   .mobile-menu {
-    display: none; 
+    display: none !important;
   }
-  
-  /* =========== MAIN =========== */
-  .main-content {
-    flex: 1;
-    background: #f0f4f8;
+  .menu-toggle {
+    display: none !important;
   }
-  
-  /* =========== FOOTER =========== */
-  .footer {
-    background: #333;
-    color: #ccc;
-    padding: 20px 30px;
-    text-align: center;
-  }
-  
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
-  
-  .footer-links a {
-    margin: 0 10px;
-    color: #ccc;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-  
-  .footer-links a:hover {
-    color: #fff;
-  }
-  
-  .footer p {
-    margin-top: 10px;
-    font-size: 0.8rem;
-  }
-  .cart-badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: red;
-    border-radius: 50%;
-    color: white;
-    width: 18px;
-    height: 18px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  
-  /* =========== MEDIA QUERIES =========== */
-  
-  @media (min-width: 769px) {
-    .mobile-menu {
-      display: none !important;
-    }
-    .menu-toggle {
-      display: none !important;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .header-center,
-    .header-right {
-      display: none;
-    }
+}
 
-    .menu-toggle {
-      display: block;
-    }
-
-    .mobile-menu {
-      position: absolute;
-      top: 70px;
-      left: 0;
-      right: 0;
-      background: #145f9e;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-20px);
-      transition: all 0.3s ease;
-    }
-  
-    .mobile-menu.open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-  
-    .mobile-menu ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-  
-    .mobile-menu ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 1.1rem;
-    }
-  
-    .mobile-menu .social-icons {
-      margin-bottom: 20px;
-    }
+@media (max-width: 768px) {
+  .main-nav {
+    display: none;
   }
-  
+  .search-bar {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
