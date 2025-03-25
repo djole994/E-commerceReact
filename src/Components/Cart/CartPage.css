@@ -1,50 +1,106 @@
 .cart-page-container {
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.cart-page-container h2 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.cart-table thead tr {
+  background-color: #f7f7f7;
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.cart-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.remove-button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+.remove-button:hover {
+  background-color: #c0392b;
+}
+
+.cart-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cart-summary h3 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.checkout-button,
+.continue-button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+.checkout-button:hover,
+.continue-button:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 576px) {
+  .cart-table thead {
+    display: none;
   }
-  
-  .cart-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .cart-table th,
-  .cart-table td {
+  .cart-table tr {
+    display: block;
+    margin-bottom: 10px;
     border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
   }
-  
-  .cart-item-image {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-  }
-  
-  .remove-button {
-    background-color: #e74c3c; /* crvena */
-    color: #fff;
+  .cart-table td {
+    display: flex;
+    justify-content: space-between;
     border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+    border-bottom: 1px solid #ddd;
   }
-  
-  .remove-button:hover {
-    background-color: #c0392b;
+  .cart-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
   }
-  
-  .cart-summary {
-    margin-top: 20px;
-    text-align: right;
+  .cart-table td img {
+    margin-right: 10px;
   }
-  
-  .checkout-button {
-    padding: 10px 20px;
-    background-color: #2ecc71; /* zelena */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
+}
