@@ -5,6 +5,7 @@ import ProductList from './Components/Product/Product';
 import CategoryList from './Components/Category/CategoryList';
 import CartPage from "./Components/Cart/CartPage";
 import ProductDetail from './Components/Product/ProductDetail';
+import CheckoutPage from './Components/Cart/CheckoutPage';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="product/:id" element={<ProductDetail />} />
           {/* Korpa */}
           <Route path="cart" element={<CartPage />} />
+          <Route path="checkout" element={<CheckoutPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

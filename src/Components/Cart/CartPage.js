@@ -58,7 +58,6 @@ const CartPage = () => {
         </table>
       )}
 
-      {/* Ako postoje artikli u korpi, prikazi sumu i dugme */}
       {cartItems.length > 0 && (
         <div className="cart-summary">
           <h3>Total: {totalAmount.toFixed(2)} EUR</h3>
