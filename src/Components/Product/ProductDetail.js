@@ -66,10 +66,10 @@ const ProductDetail = () => {
 
         <div className="price-cart-row">
           {product.isDiscounted && (
-            <span className="original-price">{product.price} KM</span>
+            <span className="original-price">{product.price} EUR</span>
           )}
           <span className="final-price">
-            {product.isDiscounted ? product.discountPrice : product.price} KM
+            {product.isDiscounted ? product.discountPrice : product.price} EUR
           </span>
           <button onClick={handleAddToCart} className="add-to-cart-button">
             <FontAwesomeIcon icon={faCartPlus} /> Add to Cart

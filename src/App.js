@@ -6,7 +6,8 @@ import CategoryList from './Components/Category/CategoryList';
 import CartPage from "./Components/Cart/CartPage";
 import ProductDetail from './Components/Product/ProductDetail';
 import CheckoutPage from './Components/Cart/CheckoutPage';
-
+import NewsletterForm from './Components/NewsletterForm/NewsletterForm';
+import Slider from './Components/Slider/Slider';
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path="/" element={<Layout />}>
           {/* Home - prikaže CategoryList */}
           <Route index element={<CategoryList />} />
+          <Route element={<NewsletterForm/>}/>
+          <Route element={<Slider/>}/>
           {/* Proizvodi po kategoriji */}
           <Route path="category/:categoryId" element={<ProductList />} />
           {/* Detalji proizvoda */}

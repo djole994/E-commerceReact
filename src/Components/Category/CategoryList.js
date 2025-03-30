@@ -16,6 +16,8 @@ import {
   faPlug
 } from "@fortawesome/free-solid-svg-icons";
 import HeroSection from "../Hero/HeroSection";
+import NewsletterForm from "../NewsletterForm/NewsletterForm";
+import Slider from "../Slider/Slider";
 
 // Mapiranje kategorija na ikonice
 const iconMapping = {
@@ -49,6 +51,10 @@ const CategoryList = () => {
 
   return (
     <div className="category-container">
+      <div className="full-width-slider">
+        <Slider />
+      </div>
+
       {/* Hero Section */}
       <HeroSection />
 
@@ -69,6 +75,7 @@ const CategoryList = () => {
           </Link>
         ))}
       </div>
+      <NewsletterForm />
     </div>
   );
 };
