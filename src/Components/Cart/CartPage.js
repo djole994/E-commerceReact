@@ -12,8 +12,6 @@ const CartPage = () => {
     0
   );
 
-
-
   return (
     <div className="cart-page-container">
       <h2>Your Cart</h2>
@@ -62,20 +60,19 @@ const CartPage = () => {
         <div className="cart-summary">
           <h3>Total: {totalAmount.toFixed(2)} EUR</h3>
 
-          <button
-            className="continue-button"
-            onClick={() => navigate("/")}
-          >
-            Continue Shopping
-          </button>
+          <div>
+            <button className="continue-button" onClick={() => navigate("/")}>
+              Continue Shopping
+            </button>
 
-          {/* Dugme za Checkout -> na /checkout */}
-          <button
-            className="checkout-button"
-            onClick={() => navigate("/checkout")}
-          >
-            Proceed to Checkout
-          </button>
+            {/* Dugme za Checkout -> na /checkout */}
+            <button
+              className="checkout-button"
+              onClick={() => navigate("/checkout")}
+            >
+              Proceed to Checkout
+            </button>
+          </div>
         </div>
       )}
     </div>

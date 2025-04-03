@@ -21,32 +21,39 @@ const Layout = () => {
   const { cartItems } = useContext(CartContext);
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-
   const email = "info@shop.com";
   const phone = "+1 555 123 456";
 
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
-
-//NAPRAVITI KOMPONENTU ZA SEARCH
+  // Funkcija za pretragu
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/api/Product/Search?term=${encodeURIComponent(searchTerm)}`);
-
     setSearchTerm("");
+  };
+
+  // Login/Logout opcije: proveravamo da li postoji token
+  const token = localStorage.getItem("token");
+  const username = localStorage.getItem("username");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+    navigate("/");
   };
 
   return (
     <div className="layout">
-      {/* ========== HEADER ========== */}
+      {/* HEADER */}
       <header className="header">
-        {/* 1) Gornji red: email, telefon, društvene mreže */}
+        {/* Gornji red: email, telefon, društvene mreže */}
         <div className="header-top">
           <div className="contact-info">
             <span>{email}</span>
@@ -65,35 +72,35 @@ const Layout = () => {
           </div>
         </div>
 
-        {/* 2) Donji red: logo, navigacija, search i cart */}
+        {/* Donji red: logo, navigacija, search, cart i login/logout */}
         <div className="header-bottom">
-          {/* Lijevo: Logo */}
+          {/* Logo */}
           <div className="header-logo" onClick={() => navigate("/")}>
             <FontAwesomeIcon icon={faStore} size="2x" className="logo-icon" />
             <span className="logo-text">E-Shop</span>
           </div>
 
-          {/* Navigacija (desktop), sakriveno na mobile */}
+          {/* Navigacija */}
           <nav className="main-nav">
             <ul>
               <li>
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/">Shop</Link>
+                <Link to="/shop">Shop</Link>
               </li>
               <li>
-                <Link to="/">About</Link>
+                <Link to="/about">About</Link>
               </li>
               <li>
-                <Link to="/">Contact</Link>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </nav>
 
-          {/* Search + Cart + Hamburger */}
+          {/* Desna strana: Search, Cart i Login/Logout */}
           <div className="header-right-section">
-            {/* Search bar (desktop) */}
+            {/* Search bar */}
             <form className="search-bar" onSubmit={handleSearch}>
               <input
                 type="text"
@@ -116,6 +123,27 @@ const Layout = () => {
               </Link>
             </div>
 
+            {/* Login/Logout opcije */}
+            <div className="user-auth">
+              {token ? (
+                <div className="logged-in">
+                  <span className="welcome-message">Hello, {username}!</span>
+                  <button onClick={handleLogout} className="logout-button">
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="auth-links">
+                  <Link to="/login" className="login-link">
+                    Login
+                  </Link>
+                  <Link to="/register" className="register-link">
+                    Register
+                  </Link>
+                </div>
+              )}
+            </div>
+
             {/* Hamburger ikona (mobile) */}
             <button className="menu-toggle" onClick={toggleMenu}>
               <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} size="lg" />
@@ -123,7 +151,7 @@ const Layout = () => {
           </div>
         </div>
 
-        {/* === Mobilni meni (nav + search + cart) === */}
+        {/* Mobilni meni */}
         <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
           <ul>
             <li>
@@ -161,6 +189,33 @@ const Layout = () => {
             </button>
           </form>
 
+          {/* Mobile Login/Logout */}
+          <div className="mobile-user-auth">
+            {token ? (
+              <div className="logged-in">
+                <span className="welcome-message">Hello, {username}!</span>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
+                  className="logout-button"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="auth-links">
+                <Link to="/login" onClick={() => setMenuOpen(false)}>
+                  Login
+                </Link>
+                <Link to="/register" onClick={() => setMenuOpen(false)}>
+                  Register
+                </Link>
+              </div>
+            )}
+          </div>
+
           <div className="mobile-social-icons">
             <a href="https://facebook.com" target="_blank" rel="noreferrer">
               <FontAwesomeIcon icon={faFacebook} />
@@ -173,9 +228,13 @@ const Layout = () => {
             </a>
           </div>
 
-          {/* Cart i bedž */}
+          {/* Mobile Cart */}
           <div className="mobile-cart-icon">
-            <Link to="/cart" style={{ position: "relative" }} onClick={() => setMenuOpen(false)}>
+            <Link
+              to="/cart"
+              style={{ position: "relative" }}
+              onClick={() => setMenuOpen(false)}
+            >
               <FontAwesomeIcon icon={faShoppingCart} size="lg" />
               {totalQuantity > 0 && (
                 <span className="cart-badge">{totalQuantity}</span>
@@ -185,12 +244,12 @@ const Layout = () => {
         </div>
       </header>
 
-      {/* GLAVNI SADRŽAJ */}
+      {/* Glavni sadržaj */}
       <main className="main-content">
         <Outlet />
       </main>
 
-      {/* FOOTER */}
+      {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-links">

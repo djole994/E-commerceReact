@@ -8,6 +8,8 @@ import ProductDetail from './Components/Product/ProductDetail';
 import CheckoutPage from './Components/Cart/CheckoutPage';
 import NewsletterForm from './Components/NewsletterForm/NewsletterForm';
 import Slider from './Components/Slider/Slider';
+import LoginPage from './Components/Identity/LoginPage';
+import RegisterPage from './Components/Identity/RegisterPage';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           {/* Korpa */}
           <Route path="cart" element={<CartPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
