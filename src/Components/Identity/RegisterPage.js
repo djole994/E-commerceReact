@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import api from "../../Api"
+import api from "../../Api";
 import "./Auth.css";
 
 const RegisterPage = () => {
@@ -23,16 +23,24 @@ const RegisterPage = () => {
       });
       navigate("/login");
     } catch (err) {
-      setError("Registration failed. Please try again.");
+      console.error("API Error:", err.response.data);
+      const errors = err.response.data[""];
+      if (errors && errors.length > 0) {
+        setError(errors[0]);
+      } else {
+        setError("Registration failed. Please try again.");
+      }
     }
   };
 
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>Register</h2>
+        <h2>Create an Account</h2>
+        <p className="subtitle">Join us and start shopping today!</p>
         {error && <div className="alert alert-danger">{error}</div>}
-        <form onSubmit={handleSubmit}>
+
+        <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
             <label>First Name</label>
             <input
@@ -44,6 +52,7 @@ const RegisterPage = () => {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Last Name</label>
             <input
@@ -55,6 +64,7 @@ const RegisterPage = () => {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Email Address</label>
             <input
@@ -66,24 +76,32 @@ const RegisterPage = () => {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Password</label>
             <input
               type="password"
               className="form-control"
-              placeholder="Password"
+              placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary btn-block">
+
+          <button type="submit" className="btn auth-btn">
             Register
           </button>
         </form>
-        <p className="mt-3">
-          Already have an account? <Link to="/login">Login here</Link>.
-        </p>
+
+        <div className="auth-footer">
+          <p>
+            Already have an account?{" "}
+            <Link to="/login" className="auth-link">
+              Log in here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

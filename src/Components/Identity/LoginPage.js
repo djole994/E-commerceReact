@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import api from "../../Api"
+import api from "../../Api";
 import "./Auth.css";
 
 const LoginPage = () => {
@@ -31,9 +31,11 @@ const LoginPage = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>Login</h2>
+        <h2>Welcome Back</h2>
+        <p className="subtitle">Please log in to your account</p>
         {error && <div className="alert alert-danger">{error}</div>}
-        <form onSubmit={handleSubmit}>
+
+        <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
             <label>Email Address</label>
             <input
@@ -45,17 +47,19 @@ const LoginPage = () => {
               required
             />
           </div>
+
           <div className="form-group">
             <label>Password</label>
             <input
               type="password"
               className="form-control"
-              placeholder="Password"
+              placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
+
           <div className="form-check">
             <input
               type="checkbox"
@@ -68,13 +72,20 @@ const LoginPage = () => {
               Remember Me
             </label>
           </div>
-          <button type="submit" className="btn btn-primary btn-block">
-            Login
+
+          <button type="submit" className="btn auth-btn">
+            Log In
           </button>
         </form>
-        <p className="mt-3">
-          Don't have an account? <Link to="/register">Register here</Link>.
-        </p>
+
+        <div className="auth-footer">
+          <p>
+            Don't have an account?{" "}
+            <Link to="/register" className="auth-link">
+              Register here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
