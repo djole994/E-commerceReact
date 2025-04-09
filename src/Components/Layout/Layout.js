@@ -103,17 +103,17 @@ const Layout = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/shop" onClick={() => setMenuOpen(false)}>
+                <Link to="/" onClick={() => setMenuOpen(false)}>
                   Shop
                 </Link>
               </li>
               <li>
-                <Link to="/about" onClick={() => setMenuOpen(false)}>
+                <Link to="/" onClick={() => setMenuOpen(false)}>
                   About
                 </Link>
               </li>
               <li>
-                <Link to="/contact" onClick={() => setMenuOpen(false)}>
+                <Link to="/" onClick={() => setMenuOpen(false)}>
                   Contact
                 </Link>
               </li>
@@ -186,11 +186,11 @@ const Layout = () => {
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-links">
-            <Link to="/about">About Us</Link>
-            <Link to="/contact">Contact</Link>
-            <Link to="/faq">FAQ</Link>
-            <Link to="/terms">Terms of Service</Link>
-            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/">About Us</Link>
+            <Link to="/">Contact</Link>
+            <Link to="/">FAQ</Link>
+            <Link to="/">Terms of Service</Link>
+            <Link to="/">Privacy Policy</Link>
           </div>
           <p>&copy; {new Date().getFullYear()} E-Shop. All rights reserved.</p>
         </div>

@@ -153,6 +153,7 @@
 .cart-icon {
   position: relative;
   color: #333;
+  cursor: pointer;
 }
 
 .cart-icon:hover {
