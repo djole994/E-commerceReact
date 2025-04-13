@@ -1,68 +1,166 @@
+:root {
+  --brand-primary: #4a90e2;
+  --brand-light: #ecf4ff;
+  --card-radius: 16px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.12);
+  --bg-gradient: linear-gradient(to bottom, #f7faff 0%, #eef2f6 100%);
+  --text-dark: #222;
+  --text-muted: #555;
+  --font-main: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+}
+
 .full-width-slider {
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  width: 100vw;
+  margin-inline: calc(-50vw + 50%);
 }
 
 .category-container {
-  padding: 30px;
-  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  padding-block: 4rem;
+  background: var(--bg-gradient);
   min-height: 100vh;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .category-container h2 {
   text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-  font-size: 2rem;
+  font-size: clamp(2rem, 2vw + 1.5rem, 2.75rem);
+  color: var(--text-dark);
+  font-weight: 700;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.category-container h2::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 4px;
+  background: var(--brand-primary);
+  margin: 1rem auto 0;
+  border-radius: 2px;
 }
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+  width: min(1200px, 90%);
+  margin-inline: auto;
+}
+
+.category-card-link {
+  text-decoration: none;
 }
 
 .category-card {
-  background: #ffffff;
-  height: 140px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding: 20px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  background: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  padding: 24px 20px 32px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  aspect-ratio: 3 / 2;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.category-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, var(--brand-primary) 0%, transparent 70%);
+  opacity: 0.05;
+  transition: opacity 0.35s;
+  z-index: 0;
 }
 
 .category-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: var(--shadow-md);
+}
+
+.category-card:hover::before {
+  opacity: 0.08;
 }
 
 .icon-wrapper {
-  margin-bottom: 10px;
-  color: #4a90e2;
-  background: rgba(74, 144, 226, 0.1);
-  padding: 10px;
+  width: 64px;
+  height: 64px;
+  background: var(--brand-light);
+  color: var(--brand-primary);
   border-radius: 50%;
-  display: inline-block;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.25rem;
+  z-index: 1;
+  transition: background 0.3s, color 0.3s;
+}
+
+.category-card:hover .icon-wrapper {
+  background: var(--brand-primary);
+  color: #fff;
 }
 
 .category-card h3 {
-  font-size: 1.1rem;
-  color: #555;
   margin: 0;
+  font-size: clamp(1rem, 0.95vw + 0.9rem, 1.25rem);
+  color: var(--text-muted);
+  line-height: 1.3;
+  font-weight: 600;
+  padding-inline: 0.75rem;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  z-index: 1;
 }
 
+
 .category-image {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
+  z-index: 1;
+}
+
+
+.skeleton {
+  background: #e3e7ee;
+  border-radius: var(--card-radius);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .category-card,
+  .icon-wrapper,
+  .skeleton {
+    transition: none;
+    animation: none;
+  }
 }

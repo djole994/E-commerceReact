@@ -19,7 +19,7 @@ import HeroSection from "../Hero/HeroSection";
 import NewsletterForm from "../NewsletterForm/NewsletterForm";
 import Slider from "../Slider/Slider";
 
-// Mapiranje kategorija na ikonice
+// mapiranje kategorija → ikonice
 const iconMapping = {
   "Laptops & Notebooks": faLaptop,
   "Smartphones & Tablets": faMobileAlt,
@@ -35,48 +35,66 @@ const iconMapping = {
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
-
-  const fetchCategories = async () => {
-    try {
-      const response = await api.get("/Category");
-      setCategories(response.data);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchCategories();
+    (async () => {
+      try {
+        const { data } = await api.get("/Category");
+        setCategories(data);
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   return (
-    <div className="category-container">
+    <section className="category-container">
+      {/* full‑width slider */}
       <div className="full-width-slider">
         <Slider />
       </div>
 
-      {/* Hero Section */}
+      {/* hero sekcija */}
       <HeroSection />
 
       <h2>Categories</h2>
+
+      {/* grid kategorija ili skeleton dok se učitava */}
       <div className="category-grid">
-        {categories.map((cat) => (
-          <Link to={`/category/${cat.id}`} key={cat.id}>
-            <div className="category-card">
-              <div className="icon-wrapper">
-                {iconMapping[cat.name] ? (
-                  <FontAwesomeIcon icon={iconMapping[cat.name]} size="2x" />
-                ) : (
-                  <img alt={cat.name} src={cat.imageUrl} className="category-image" />
-                )}
-              </div>
-              <h3>{cat.name}</h3>
-            </div>
-          </Link>
-        ))}
+        {loading
+          ? Array.from({ length: 6 }).map((_, i) => (
+              <div className="category-card skeleton" key={i} />
+            ))
+          : categories.map((cat) => (
+              <Link
+                to={`/category/${cat.id}`}
+                key={cat.id}
+                className="category-card-link"
+                aria-label={`Open category ${cat.name}`}
+              >
+                <article className="category-card" role="button" tabIndex={0}>
+                  <div className="icon-wrapper">
+                    {iconMapping[cat.name] ? (
+                      <FontAwesomeIcon icon={iconMapping[cat.name]} size="lg" />
+                    ) : (
+                      <img
+                        src={cat.imageUrl}
+                        alt={cat.name}
+                        className="category-image"
+                      />
+                    )}
+                  </div>
+                  <h3>{cat.name}</h3>
+                </article>
+              </Link>
+            ))}
       </div>
+
       <NewsletterForm />
-    </div>
+    </section>
   );
 };
 
